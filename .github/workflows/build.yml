@@ -25,6 +25,13 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/kdrag0n/proton-clang \
             "$HOME/proton-clang/proton-clang-20210522"
+          # Remove the generic host linkers bundled with proton-clang so that
+          # host tools (fixdep etc.) link with the system x86_64 ld instead of
+          # proton's aarch64-targeted ld. Cross linkers (aarch64-linux-gnu-ld,
+          # arm-linux-gnueabi-ld) are kept for the actual kernel build.
+          B="$HOME/proton-clang/proton-clang-20210522/bin"
+          rm -f "$B/ld" "$B/ld.bfd" "$B/ld.gold"
+          ls "$B" | grep -E '(^|-)ld' || true
 
       - name: Build kernel (SukiSU + SUSFS, SUS_PATH/SUS_SU enabled)
         run: |
