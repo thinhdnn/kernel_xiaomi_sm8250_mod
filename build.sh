@@ -125,7 +125,7 @@ if [ $KSU_ENABLE -eq 1 ]; then
     -e KSU \
     -e KSU_MANUAL_HOOK \
     -e KSU_SUSFS_HAS_MAGIC_MOUNT \
-    -d KSU_SUSFS_SUS_PATH \
+    -e KSU_SUSFS_SUS_PATH \
     -e KSU_SUSFS_SUS_MOUNT \
     -e KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT \
     -e KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT \
@@ -138,7 +138,7 @@ if [ $KSU_ENABLE -eq 1 ]; then
     -e KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS \
     -e KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG \
     -d KSU_SUSFS_OPEN_REDIRECT \
-    -d KSU_SUSFS_SUS_SU \
+    -e KSU_SUSFS_SUS_SU \
     -e KPM
 else
     scripts/config --file out/.config -d KSU
@@ -264,7 +264,7 @@ if [ $KSU_ENABLE -eq 1 ]; then
     -e KSU \
     -e KSU_MANUAL_HOOK \
     -e KSU_SUSFS_HAS_MAGIC_MOUNT \
-    -d KSU_SUSFS_SUS_PATH \
+    -e KSU_SUSFS_SUS_PATH \
     -e KSU_SUSFS_SUS_MOUNT \
     -e KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT \
     -e KSU_SUSFS_AUTO_ADD_SUS_BIND_MOUNT \
@@ -277,7 +277,7 @@ if [ $KSU_ENABLE -eq 1 ]; then
     -e KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS \
     -e KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG \
     -d KSU_SUSFS_OPEN_REDIRECT \
-    -d KSU_SUSFS_SUS_SU \
+    -e KSU_SUSFS_SUS_SU \
     -e KPM
 else
     scripts/config --file out/.config -d KSU
