@@ -1,0 +1,38 @@
+name: Build psyche kernel
+on:
+  workflow_dispatch:
+    inputs:
+      device:
+        description: "Target device defconfig"
+        default: "psyche"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            git zip ccache build-essential libssl-dev bc bison flex \
+            wget curl python3 gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi
+
+      - name: Fetch proton-clang toolchain
+        run: |
+          git clone --depth=1 https://github.com/kdrag0n/proton-clang \
+            "$HOME/proton-clang/proton-clang-20210522"
+
+      - name: Build kernel (SukiSU + SUSFS, SUS_PATH/SUS_SU enabled)
+        run: |
+          bash build.sh "${{ github.event.inputs.device }}" ksu
+
+      - name: Upload flashable zips
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-${{ github.event.inputs.device }}
+          path: "*.zip"
+          if-no-files-found: error
